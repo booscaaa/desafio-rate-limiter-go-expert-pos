@@ -2,10 +2,11 @@ package usecase
 
 import (
 	"context"
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/infra/inmemory"
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/infra/rdb"
 	"time"
+
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/infra/inmemory"
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/infra/rdb"
 
 	"fmt"
 	"log"
@@ -71,8 +72,6 @@ func GetStorage() entity.DatabaseRepository {
 
 func CheckLimit(ctx context.Context, database entity.DatabaseRepository, key string) bool {
 	config, err := database.Read(ctx, key)
-
-	fmt.Println(key)
 
 	if err != nil {
 		database.Create(ctx, entity.RateLimiterInfo{

@@ -1,8 +1,9 @@
 package main
 
 import (
-	"desafio-rate-limiter-go-expert-pos/pkg"
 	"net/http"
+
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter"
 
 	"github.com/gin-gonic/gin"
 	"github.com/spf13/viper"
@@ -17,11 +18,11 @@ func init() {
 }
 
 func main() {
-	limiter := pkg.Initialize()
+	limiter := ratelimiter.Initialize()
 
 	router := gin.Default()
 	router.Use(func(c *gin.Context) {
-		pkg.Middleware(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
+		ratelimiter.Middleware(http.HandlerFunc(func(w http.ResponseWriter, req *http.Request) {
 			c.Next()
 		}), limiter.Storage).ServeHTTP(c.Writer, c.Request)
 	})

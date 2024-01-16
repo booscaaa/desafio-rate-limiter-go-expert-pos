@@ -2,10 +2,11 @@ package inmemory
 
 import (
 	"context"
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
 	"fmt"
 	"sync"
 	"time"
+
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
 )
 
 type repository struct {

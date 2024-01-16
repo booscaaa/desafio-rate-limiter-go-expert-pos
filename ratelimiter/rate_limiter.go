@@ -1,10 +1,11 @@
 package ratelimiter
 
 import (
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/usecase"
 	"net/http"
 	"strings"
+
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/usecase"
 )
 
 type LimiterOpts struct {

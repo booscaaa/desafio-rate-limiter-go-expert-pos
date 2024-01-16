@@ -2,10 +2,11 @@ package rdb
 
 import (
 	"context"
-	"desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
 	"encoding/json"
 	"fmt"
 	"time"
+
+	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
 
 	"github.com/go-redis/redis/v8"
 )
@@ -34,8 +35,6 @@ func (repository repository) Read(ctx context.Context, key string) (*entity.Rate
 	if err != nil {
 		return nil, err
 	}
-
-	fmt.Println("val", val)
 
 	var config entity.RateLimiterInfo
 	err = json.Unmarshal([]byte(val), &config)
