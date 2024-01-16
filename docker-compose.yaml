@@ -8,6 +8,20 @@ services:
       - "6379:6379"
     networks:
       - server
+
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile.dev
+    ports:
+      - 8080:8080
+    volumes:
+      - ./api/:/server
+      - ./api/data/:/server/data
+      - ./ratelimiter:/ratelimiter
+    networks:
+      - server
     
 
 networks: 
