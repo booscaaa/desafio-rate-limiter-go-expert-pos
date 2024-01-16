@@ -1,4 +1,4 @@
-module desafio-rate-limiter-go-expert-pos/ratelimiter
+module github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter
 
 go 1.21.5
 
