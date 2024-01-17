@@ -162,9 +162,7 @@ func main() {
 	ratelimiter.Initialize()
 	router := mux.NewRouter()
 
-	router.Use(func(next http.Handler) http.Handler {
-		return ratelimiter.Middleware(next)
-	})
+	router.Use(ratelimiter.Middleware)
 
 	router.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))
@@ -209,9 +207,7 @@ func main() {
 	ratelimiter.Initialize()
 	router := chi.NewRouter()
 
-	router.Use(func(next http.Handler) http.Handler {
-		return ratelimiter.Middleware(next)
-	})
+	router.Use(ratelimiter.Middleware)
 
 	router.Get("/", func(w http.ResponseWriter, r *http.Request) {
 		w.Write([]byte("Hello, World!"))
