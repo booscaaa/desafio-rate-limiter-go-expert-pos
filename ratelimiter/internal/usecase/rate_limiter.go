@@ -2,6 +2,7 @@ package usecase
 
 import (
 	"context"
+	"os"
 	"time"
 
 	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/entity"
@@ -47,9 +48,79 @@ func ConfigLimiter(database entity.DatabaseRepository) {
 }
 
 func LoadConfig() {
-	err := viper.Unmarshal(&defaultConfig)
+	if fileExists(".env") {
+		loadConfigFromEnv()
+		return
+	}
+	loadConfigFromJson()
+}
+
+func fileExists(filename string) bool {
+	info, err := os.Stat(filename)
+	if os.IsNotExist(err) {
+		return false
+	}
+	return !info.IsDir()
+}
+
+func loadConfigFromJson() {
+	viper.SetConfigFile(`config.json`)
+	err := viper.ReadInConfig()
+	if err != nil {
+		panic(err)
+	}
+
+	err = viper.Unmarshal(&defaultConfig)
 	if err != nil {
 		panic(fmt.Errorf("unable to decode into struct: %w", err))
+	}
+}
+
+func loadConfigFromEnv() {
+	viper.SetConfigFile(".env")
+	viper.SetConfigType("env")
+	viper.AutomaticEnv()
+	if err := viper.MergeInConfig(); err != nil {
+		panic(fmt.Errorf("Erro ao ler o arquivo .env: %s", err))
+	}
+
+	defaultConfig.Limiter.Database.InMemory = viper.GetBool("LIMITER_DATABASE_INMEMORY")
+	defaultConfig.Limiter.Database.Redis = viper.GetBool("LIMITER_DATABASE_REDIS")
+	defaultConfig.Limiter.Default.Requests = viper.GetInt("LIMITER_DEFAULT_REQUESTS")
+	defaultConfig.Limiter.Default.Every = viper.GetInt("LIMITER_DEFAULT_EVERY")
+
+	for i := 0; ; i++ {
+		ipKey := fmt.Sprintf("LIMITER_IPS_%d_IP", i)
+		if !viper.IsSet(ipKey) {
+			break
+		}
+
+		ip := viper.GetString(ipKey)
+		requests := viper.GetInt(fmt.Sprintf("LIMITER_IPS_%d_REQUESTS", i))
+		every := viper.GetInt(fmt.Sprintf("LIMITER_IPS_%d_EVERY", i))
+
+		defaultConfig.Limiter.IPS = append(defaultConfig.Limiter.IPS, entity.IP{
+			IP:       ip,
+			Requests: requests,
+			Every:    every,
+		})
+	}
+
+	for i := 0; ; i++ {
+		tokenKey := fmt.Sprintf("LIMITER_TOKENS_%d_TOKEN", i)
+		if !viper.IsSet(tokenKey) {
+			break
+		}
+
+		token := viper.GetString(tokenKey)
+		requests := viper.GetInt(fmt.Sprintf("LIMITER_TOKENS_%d_REQUESTS", i))
+		every := viper.GetInt(fmt.Sprintf("LIMITER_TOKENS_%d_EVERY", i))
+
+		defaultConfig.Limiter.Tokens = append(defaultConfig.Limiter.Tokens, entity.Token{
+			Token:    token,
+			Requests: requests,
+			Every:    every,
+		})
 	}
 }
 
@@ -60,7 +131,7 @@ func GetStorage() entity.DatabaseRepository {
 
 	if defaultConfig.Limiter.Database.Redis {
 		database := redis.NewClient(&redis.Options{
-			Addr:     "localhost:6379",
+			Addr:     "redis:6379",
 			Password: "",
 			DB:       0,
 		})
