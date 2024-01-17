@@ -239,7 +239,7 @@ docker compose up --build -d
 ```
 
 # Testando
-Para realizar os testes e verificar as configurações feitas no arquivo ``json` ou `.env` podemos usar o desafio do stress test criado.
+Para realizar os testes e verificar as configurações feitas no arquivo `json` ou `.env` podemos usar o desafio do stress test criado.
 
 Vamos configurar o `.env` da seguinte forma:
 
