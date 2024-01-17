@@ -7,7 +7,7 @@ services:
     ports:
       - "6379:6379"
     networks:
-      - server
+      - server-ratelimiter
 
   api:
     container_name: api
@@ -21,9 +21,9 @@ services:
       - ./api/data/:/server/data
       - ./ratelimiter:/ratelimiter
     networks:
-      - server
+      - server-ratelimiter
     
 
 networks: 
-  server:
+  server-ratelimiter:
     driver: bridge
