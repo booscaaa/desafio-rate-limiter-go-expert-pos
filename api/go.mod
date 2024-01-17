@@ -2,12 +2,8 @@ module github.com/booscaaa/desafio-stress-test-go-expert-pos/api
 
 go 1.21.6
 
-replace github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter => ../ratelimiter
-
 require (
-	github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter v0.0.0-00010101000000-000000000000
 	github.com/gin-gonic/gin v1.9.1
-	github.com/spf13/viper v1.18.2
 )
 
 require (
@@ -39,6 +35,7 @@ require (
 	github.com/spf13/afero v1.11.0 // indirect
 	github.com/spf13/cast v1.6.0 // indirect
 	github.com/spf13/pflag v1.0.5 // indirect
+	github.com/spf13/viper v1.18.2 // indirect
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
