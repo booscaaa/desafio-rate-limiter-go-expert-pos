@@ -1,6 +1,12 @@
 # Rate Limiter Middleware for Go
 Este middleware implementa um sistema de limitação de taxa de requisições (rate limiting) para aplicações web em Go. Ele é projetado para prevenir o excesso de uso dos recursos do servidor limitando o número de requisições ou ações permitidas por um token ou endereço IP em um determinado período de tempo.
 
+# Estrutura
+
+- ratelimiter: pasta com o fonte do package para ser usado em seu router.
+
+- api: exemplo de uso do package em uma api com gin-gonic.
+
 # Features
 - Configuração flexível de armazenamento para o controle do rate limit.
 - Extração automática do endereço IP do solicitante.
