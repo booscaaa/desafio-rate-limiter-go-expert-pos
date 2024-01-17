@@ -8,6 +8,8 @@ import (
 	"github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter/internal/usecase"
 )
 
+var limiterOpts = &LimiterOpts{}
+
 type LimiterOpts struct {
 	Storage entity.DatabaseRepository
 }
@@ -20,10 +22,9 @@ func Storage(value entity.DatabaseRepository) LimiterOption {
 	}
 }
 
-func Initialize(opts ...LimiterOption) *LimiterOpts {
+func Initialize(opts ...LimiterOption) {
 	usecase.LoadConfig()
 
-	limiterOpts := &LimiterOpts{}
 	for _, opt := range opts {
 		opt(limiterOpts)
 	}
@@ -33,11 +34,9 @@ func Initialize(opts ...LimiterOption) *LimiterOpts {
 	}
 
 	usecase.ConfigLimiter(limiterOpts.Storage)
-
-	return limiterOpts
 }
 
-func Middleware(next http.Handler, storage entity.DatabaseRepository) http.Handler {
+func Middleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		key := getIP(r)
 		queryValues := r.URL.Query()
@@ -45,7 +44,7 @@ func Middleware(next http.Handler, storage entity.DatabaseRepository) http.Handl
 			key = token[0]
 		}
 
-		limiter := usecase.CheckLimit(r.Context(), storage, key)
+		limiter := usecase.CheckLimit(r.Context(), limiterOpts.Storage, key)
 
 		if !limiter {
 			http.Error(w, "you have reached the maximum number of requests or actions allowed within a certain time frame", http.StatusTooManyRequests)
