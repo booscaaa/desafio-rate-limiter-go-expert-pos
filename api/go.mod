@@ -3,6 +3,7 @@ module github.com/booscaaa/desafio-stress-test-go-expert-pos/api
 go 1.21.6
 
 require (
+	github.com/booscaaa/desafio-rate-limiter-go-expert-pos/ratelimiter v0.0.0-20240117165343-f9fff124660b
 	github.com/gin-gonic/gin v1.9.1
 )
 
