@@ -36,7 +36,7 @@ Por exemplo, para definir todas as opções disponíveis no json use:
 | `redis`      | Se `true`, usa o Redis para armazenar dados de limitação. Se `false`, não usa o Redis. |
 | `default`    | Define limites padrões para requisições.                         |
 | `requests`   | Número máximo de requisições permitidas.                          |
-| `every`      | Intervalo de tempo (em minutos) para o limite de requisições.    |
+| `every`      | Intervalo de tempo (em segundos) para o limite de requisições.    |
 | `ips`        | Array de objetos especificando limites para IPs individuais.    |
 | `ip`         | Endereço IP específico para aplicar limites de requisição.      |
 | `tokens`     | Array de objetos especificando limites para tokens de acesso.   |
@@ -83,16 +83,16 @@ Por exemplo, para definir todas as opções disponíveis no .env use:
 | `LIMITER_DATABASE_INMEMORY`      | Se `false`, não usa a memória para armazenar dados de limitação. Se `true`, usa a memória. |
 | `LIMITER_DATABASE_REDIS`         | Se `true`, usa o Redis para armazenar dados de limitação. Se `false`, não usa o Redis. |
 | `LIMITER_DEFAULT_REQUESTS`       | Número máximo padrão de requisições permitidas.                 |
-| `LIMITER_DEFAULT_EVERY`          | Intervalo de tempo padrão (em minutos) para o limite de requisições. |
+| `LIMITER_DEFAULT_EVERY`          | Intervalo de tempo padrão (em segundos) para o limite de requisições. |
 | `LIMITER_IPS_0_IP`               | Endereço IP específico (ex.: 127.0.0.1) para aplicar limites de requisição. |
 | `LIMITER_IPS_0_REQUESTS`         | Número máximo de requisições permitidas para o IP especificado. |
-| `LIMITER_IPS_0_EVERY`            | Intervalo de tempo (em minutos) para o limite de requisições para o IP especificado. |
+| `LIMITER_IPS_0_EVERY`            | Intervalo de tempo (em segundos) para o limite de requisições para o IP especificado. |
 | `LIMITER_TOKENS_0_TOKEN`         | Token de acesso específico (ex.: 123456) para aplicar limites de requisição. |
 | `LIMITER_TOKENS_0_REQUESTS`      | Número máximo de requisições permitidas para o token especificado. |
-| `LIMITER_TOKENS_0_EVERY`         | Intervalo de tempo (em minutos) para o limite de requisições para o token especificado. |
+| `LIMITER_TOKENS_0_EVERY`         | Intervalo de tempo (em segundos) para o limite de requisições para o token especificado. |
 | `LIMITER_TOKENS_1_TOKEN`         | Outro token de acesso específico (ex.: abc543) para aplicar limites de requisição. |
 | `LIMITER_TOKENS_1_REQUESTS`      | Número máximo de requisições permitidas para o segundo token especificado. |
-| `LIMITER_TOKENS_1_EVERY`         | Intervalo de tempo (em minutos) para o limite de requisições para o segundo token especificado. |
+| `LIMITER_TOKENS_1_EVERY`         | Intervalo de tempo (em segundos) para o limite de requisições para o segundo token especificado. |
 
 ### Exemplo
 
